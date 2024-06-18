@@ -1,20 +1,31 @@
 const audio= document.querySelectorAll("audio");
-console.log(audio);
-window.addEventListener("keydown",e=>{
-    const clickedKey = e.keyCode;
-    
-})
-const playAudio = (code)=>{
-    audio.forEach(obj => {
-        const key =obj.dataset.key;
-        if(key==code){
-            obj.classList.add("playing")
+
+
+const play=(search)=>{
+    audio.forEach(e=>{
+        // to fix => the comparison is not efficient at all
+        let selected = e.dataset[key="key"];
+        selected=String.fromCharCode(selected);
+        selected=selected.toLowerCase();
+
+        if(selected==search){
+            e.currentTime=0;
+            e.play();
+            selected= selected.toUpperCase();
+            const key = document.getElementById(`${selected}`);
+
+            key.classList.add("playing");
+            key.addEventListener("transitionend",e=>{
+                if(e.propertyName=="transform"){
+                    key.classList.remove("playing");
+                }
+            })
         }
-        console.log(obj);
+
     })
 }
-window.addEventListener("keydown",e=>{
-    const key = e.keyCode;
-    playAudio(key);
-    
-})
+
+
+window.addEventListener("keydown",e =>{
+    play(e.key);
+});

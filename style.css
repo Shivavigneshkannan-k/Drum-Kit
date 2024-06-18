@@ -38,6 +38,7 @@ body{
     flex: 1;
 
     border: 5px solid black;
+    transition: all 0.05s ;
 
     padding:1em 0.5em;
 }
